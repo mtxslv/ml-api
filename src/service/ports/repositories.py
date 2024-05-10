@@ -5,7 +5,6 @@ class BaseRepository(ABC):
     
     @abstractmethod
     def get(self,
-            experiment_id,
-            run_id,
-            model_id):
+            experiment_name,
+            model_name):
         raise NotImplementedError

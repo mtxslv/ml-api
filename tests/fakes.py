@@ -5,9 +5,8 @@ class FakeRepo(BaseRepository):
         self.models = models
 
     def get(self,
-            experiment_id,
-            run_id,
-            model_id):
+            experiment_name,
+            model_name):
         return self.models[0]
     
 class FakeModel():
