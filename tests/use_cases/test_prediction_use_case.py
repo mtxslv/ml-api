@@ -10,3 +10,17 @@ def test_prediction_use_case_init():
 
     # Assert
     assert hasattr(prediction_use_case, 'model_repository')
+
+def test_prediction_use_case_predict():
+    # Arrange
+    val_to_return = 'flower'
+    fake_repo = FakeRepo([FakeModel(val_to_return)])
+
+    # Act
+    prediction_use_case = PredictionUseCase(model_repository=fake_repo)
+    model_uid = 'my-model'
+    model_input = [[1,2,3,4]]
+    ans = prediction_use_case.predict(model_uid,model_input)
+   
+    # Assert
+    assert ans == val_to_return
