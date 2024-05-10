@@ -4,7 +4,10 @@ class FakeRepo(BaseRepository):
     def __init__(self,models=[]) -> None:
         self.models = models
 
-    def get(self,uid: str):
+    def get(self,
+            experiment_id,
+            run_id,
+            model_id):
         return self.models[0]
     
 class FakeModel():
