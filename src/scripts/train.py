@@ -34,8 +34,10 @@ def get_metrics(y_true, y_preds):
     return metrics
 
 def main():
+
     client = get_client()
     iris_experiment = mlflow.set_experiment("IRIS")
+    mlflow.autolog()
 
     # DATA FETCHING
     # fetch dataset 
@@ -48,17 +50,18 @@ def main():
     # TRAIN-TEST SPLIT
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
-    # MODEL CREATION AND TRAINING
-    model = Pipeline([
-        ('scaler', StandardScaler()),
-        ('pca', PCA()),
-        ('model', GradientBoostingClassifier())
-    ])
-    model.fit(X_train,y_train)
-
-    # MODEL EVALUATION
-    preds = model.predict(X_test)
     with mlflow.start_run() as run:
+
+        # MODEL CREATION AND TRAINING
+        model = Pipeline([
+            ('scaler', StandardScaler()),
+            ('pca', PCA()),
+            ('model', GradientBoostingClassifier())
+        ])
+        model.fit(X_train,y_train)
+
+        # MODEL EVALUATION
+        preds = model.predict(X_test)
         metrics = get_metrics(y_test, preds)
         mlflow.log_metrics(metrics)
 
