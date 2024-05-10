@@ -1,4 +1,6 @@
-class FakeRepo():
+from src.service.ports.repositories import BaseRepository
+
+class FakeRepo(BaseRepository):
     def __init__(self,models=[]) -> None:
         self.models = models
 
