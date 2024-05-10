@@ -15,14 +15,14 @@ class MlflowLocalRepository(BaseRepository):
         
     def get(self,
             experiment_name,
-            model_name):
+            run_name):
         # Get IRIS experiment
         experiments = self.client.get_experiment_by_name(experiment_name) # returns a list of mlflow.entities.Experiment
 
         # Now get its run
         runs = mlflow.search_runs(experiments.experiment_id)
 
-        a_run = runs[runs['tags.mlflow.runName'] == model_name]
+        a_run = runs[runs['tags.mlflow.runName'] == run_name]
 
         if a_run.shape[0] == 0:
             # raise RunNotFound 

@@ -18,14 +18,12 @@ def test_prediction_use_case_predict():
 
     # Act
     prediction_use_case = PredictionUseCase(model_repository=fake_repo)
-    experiment_id = 'exp'
-    run_id = 'a-run'
-    model_uid = 'my-model'
+    experiment_name = 'IRIS'
+    run_name = 'unequaled-turtle-71'
     model_input = [[1,2,3,4]]
     ans = prediction_use_case.predict(
-        experiment_id,
-        run_id,
-        model_uid,
+        experiment_name,
+        run_name,
         model_input
     )
    

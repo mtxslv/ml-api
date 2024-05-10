@@ -6,7 +6,7 @@ class FakeRepo(BaseRepository):
 
     def get(self,
             experiment_name,
-            model_name):
+            run_name):
         return self.models[0]
     
 class FakeModel():
