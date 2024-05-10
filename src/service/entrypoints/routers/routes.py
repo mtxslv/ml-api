@@ -36,8 +36,8 @@ def predict(experiment_name : str,
         run_name,
         iris.to_2D_list()
     )
-    
+
     return responses.JSONResponse(
         status_code = status.HTTP_200_OK,
-        content = {'model-response':preds} 
+        content = {'model-response':preds[0]} 
     ) 
