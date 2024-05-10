@@ -1,0 +1,15 @@
+artifact_uri: /home/mateus/Documentos/ml-api/models/795372866782281646/ae5cfef58c494698b56cec130d7d6070/artifacts
+end_time: 1715366845049
+entry_point_name: ''
+experiment_id: '795372866782281646'
+lifecycle_stage: active
+run_id: ae5cfef58c494698b56cec130d7d6070
+run_name: unequaled-turtle-71
+run_uuid: ae5cfef58c494698b56cec130d7d6070
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715366839188
+status: 3
+tags: []
+user_id: mateus
