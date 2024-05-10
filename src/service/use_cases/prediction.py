@@ -10,4 +10,6 @@ class PredictionUseCase:
     def predict(self,
                 model_uid: str,
                 input: typing.Any) -> typing.Any:
-        pass
+        model = self.model_repository.get(model_uid)
+        ans = model.predict(input)
+        return ans
