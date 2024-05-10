@@ -15,6 +15,8 @@ class PredictionUseCase:
         self.model_repository = model_repository
 
     def predict(self,
+                experiment_uid: str,
+                run_uid: str,
                 model_uid: str,
                 input: typing.Any) -> typing.Any:
         """Make a prediction using the specified model.
@@ -31,6 +33,10 @@ class PredictionUseCase:
         typing.Any
             The prediction result.
         """
-        model = self.model_repository.get(model_uid)
+        model = self.model_repository.get(
+            experiment_uid,
+            run_uid,
+            model_uid
+        )
         result = model.predict(input)
         return result
