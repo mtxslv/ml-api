@@ -242,18 +242,6 @@ pyrightconfig.json
 *mies
 
 # Other names that would make sense
-*tests
-*testsdir
-*testsfile
-*testsfiles
-*test
-*testdir
-*testfile
-*testfiles
-*testing
-*testingdir
-*testingfile
-*testingfiles
 *temp
 *tempdir
 *tempfile
@@ -562,7 +550,7 @@ ServiceFabricBackup/
 *- [Bb]ackup ([0-9][0-9]).rdl
 
 # Microsoft Fakes
-FakesAssemblies/
+# FakesAssemblies/
 
 # GhostDoc plugin setting file
 *.GhostDoc.xml
