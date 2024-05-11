@@ -80,7 +80,7 @@ But considering you choose the *IRIS* experiment with a valid run, you can then 
 If you install the libs by running
 
 ```shell
-$ pip install full-requirements.txt
+$ pip install -r full-requirements.txt
 ```
 
 you can see the details discussed above (experiment name and run names) in the mlflow ui by running:
