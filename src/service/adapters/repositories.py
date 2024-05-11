@@ -10,6 +10,7 @@ from src.service.ports.repositories import BaseRepository
 class MlflowLocalRepository(BaseRepository):
     def __init__(self, uri: Path) -> None:
         mlflow.set_tracking_uri(str(uri))
+        self.uri = uri
         self.client = MlflowClient(
             tracking_uri=str(uri)
         )
@@ -31,8 +32,10 @@ class MlflowLocalRepository(BaseRepository):
         if a_run.shape[0] == 0:
             raise RunNotFound 
 
-        model_uri = a_run.artifact_uri.to_list()[0]
+        model_uri = Path(a_run.artifact_uri.to_list()[0])
+        uri_parts = model_uri.parts[-3:] # experiment-id / run-id / artifacts
+        full_uri = self.uri / '/'.join(uri_parts) / 'model'
         model = mlflow.sklearn.load_model(
-            f'{model_uri}/model'
+            str(full_uri)
         )
         return model
