@@ -1,6 +1,7 @@
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, responses, status
 
+from src.service.adapters.exceptions import ExperimentNotFound, RunNotFound
 from src.service.domain.objects import IrisData
 from src.service.config.logger import get_logger
 
@@ -30,14 +31,38 @@ def predict(experiment_name : str,
         sepal_length = sep_len,
         sepal_width = sep_wid
     )
-
-    preds = predict_use_case.predict(
-        experiment_name,
-        run_name,
-        iris.to_2D_list()
-    )
-
-    return responses.JSONResponse(
-        status_code = status.HTTP_200_OK,
-        content = {'model-response':preds[0]} 
-    ) 
+    try:
+       preds = predict_use_case.predict(
+           experiment_name,
+           run_name,
+           iris.to_2D_list()
+       )
+    except ExperimentNotFound:
+        status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        content = {
+            'message': 'Experiment not found.',
+            'model-response': None
+        }
+    except RunNotFound:
+        status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        content = {
+            'message': 'Run not found.',
+            'model-response': None
+        }
+    except Exception as e:
+        status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        content = {
+            'message': 'Unexpected behaviour.',
+            'model-response': None
+        }
+    else:
+        status_code = status.HTTP_200_OK
+        content = {
+            'message': 'Success.',
+            'model-response': preds[0]
+        }
+    finally:
+        return responses.JSONResponse(
+            status_code = status_code,
+            content = content
+        ) 
