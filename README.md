@@ -77,7 +77,14 @@ But considering you choose the *IRIS* experiment with a valid run, you can then 
 
 ## See MLFlow UI by running:
 
-If you install the libs by running
+A good first step is to create a virtualenv, doing something like:
+
+```shell
+python3 -m virtualenv .venv
+source .venv/bin/activate
+```
+
+Then you install the libs by running
 
 ```shell
 $ pip install -r full-requirements.txt
@@ -91,7 +98,12 @@ $ mlflow ui --port 8080 --backend-store-uri ./models
 
 ## Create a new run under IRIS experiment
 
-In case you want to generate a new run, you can execute the following (after installing the `full-requirements.txt` dependencies):
+In case you want to generate a new run, it is necessary to install the project itself as well. You should do:
+
+```shell
+$ python3 -m pip install .                   
+```
+you can now execute the following:
 
 ```shell
 $ python src/scripts/train.py
