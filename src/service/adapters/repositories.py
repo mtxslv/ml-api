@@ -3,6 +3,7 @@ from pathlib import Path
 import mlflow
 from mlflow.client import MlflowClient
 
+from src.service.adapters.exceptions import ExperimentNotFound, RunNotFound
 from src.service.ports.repositories import BaseRepository
 
 
@@ -18,6 +19,9 @@ class MlflowLocalRepository(BaseRepository):
             run_name):
         # Get IRIS experiment
         experiments = self.client.get_experiment_by_name(experiment_name) # returns a list of mlflow.entities.Experiment
+        
+        if experiments is None:
+            raise ExperimentNotFound
 
         # Now get its run
         runs = mlflow.search_runs(experiments.experiment_id)
@@ -25,11 +29,10 @@ class MlflowLocalRepository(BaseRepository):
         a_run = runs[runs['tags.mlflow.runName'] == run_name]
 
         if a_run.shape[0] == 0:
-            # raise RunNotFound 
-            pass
-        else:
-            model_uri = a_run.artifact_uri.to_list()[0]
-            model = mlflow.sklearn.load_model(
-                f'{model_uri}/model'
-            )
-            return model
+            raise RunNotFound 
+
+        model_uri = a_run.artifact_uri.to_list()[0]
+        model = mlflow.sklearn.load_model(
+            f'{model_uri}/model'
+        )
+        return model
