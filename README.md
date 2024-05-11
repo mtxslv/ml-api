@@ -87,7 +87,7 @@ source .venv/bin/activate
 Then you install the libs by running
 
 ```shell
-$ pip install -r full-requirements.txt
+$ python3 -m pip install -r full-requirements.txt
 ```
 
 you can see the details discussed above (experiment name and run names) in the mlflow ui by running:
