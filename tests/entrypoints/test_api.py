@@ -28,7 +28,7 @@ async def test_predict_fake_model(client):
     sep_wid = 3
     pet_wid = 4
     url_string = f'/predict/{experiment}/{run}?sep_len={sep_len}&pet_len={pet_len}&sep_wid={sep_wid}&pet_wid={pet_wid}'
-    expected_response = {'model-response': val_to_return[0]}
+    expected_response = {'message': 'Success.','model-response': val_to_return[0]}
     with app.container.model_repo.override(fake_repo):       
         response = await client.get(url_string)
         assert response.status_code == 200
@@ -45,10 +45,44 @@ async def test_predict(client):
     sep_wid = 5.1	
     pet_wid = 2.4
     url_string = f'/predict/{experiment}/{run}?sep_len={sep_len}&pet_len={pet_len}&sep_wid={sep_wid}&pet_wid={pet_wid}'
-    expected_response = {'model-response': 'Iris-virginica'}
+    expected_response = {'message': 'Success.','model-response': 'Iris-virginica'}
     
     response = await client.get(url_string)
     assert response.status_code == 200
     response = response.json()
     logger.debug(response)
     assert response == expected_response
+
+# @pytest.mark.asyncio
+# async def test_predict_experiment_not_found(client):
+#     experiment = 'ESCLERA' # make fun of the relation iris / esclera
+#     run = 'unequaled-turtle-71'
+#     sep_len = 5.8
+#     pet_len = 2.8	
+#     sep_wid = 5.1	
+#     pet_wid = 2.4
+#     url_string = f'/predict/{experiment}/{run}?sep_len={sep_len}&pet_len={pet_len}&sep_wid={sep_wid}&pet_wid={pet_wid}'
+#     expected_response = {'model-response': 'Iris-virginica'}
+    
+#     response = await client.get(url_string)
+#     assert response.status_code == 200
+#     response = response.json()
+#     logger.debug(response)
+#     assert response == expected_response
+
+# @pytest.mark.asyncio
+# async def test_predict_run_not_found(client):
+#     experiment = 'IRIS'
+#     run = 'unequaled-turtle-71'
+#     sep_len = 5.8
+#     pet_len = 2.8	
+#     sep_wid = 5.1	
+#     pet_wid = 2.4
+#     url_string = f'/predict/{experiment}/{run}?sep_len={sep_len}&pet_len={pet_len}&sep_wid={sep_wid}&pet_wid={pet_wid}'
+#     expected_response = {'model-response': 'Iris-virginica'}
+    
+#     response = await client.get(url_string)
+#     assert response.status_code == 200
+#     response = response.json()
+#     logger.debug(response)
+#     assert response == expected_response
