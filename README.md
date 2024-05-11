@@ -1,3 +1,17 @@
+# Docker
+
+## Build Docker
+
+```shell
+$ docker build . -t ml-api
+```
+
+## Run Docker
+
+```shell
+$ docker run -i -p 8080:8080 ml-api
+```
+
 ## See MLFlow UI by running:
 
 ```shell
