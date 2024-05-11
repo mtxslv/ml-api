@@ -32,36 +32,42 @@ def predict(experiment_name : str,
         sepal_width = sep_wid
     )
     try:
+       logger.info('Running model')
        preds = predict_use_case.predict(
            experiment_name,
            run_name,
            iris.to_2D_list()
        )
     except ExperimentNotFound:
+        logger.exception(ExperimentNotFound)
         status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         content = {
             'message': 'Experiment not found.',
             'model-response': None
         }
     except RunNotFound:
+        logger.exception(RunNotFound)
         status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         content = {
             'message': 'Run not found.',
             'model-response': None
         }
     except Exception as e:
+        logger.exception(e)
         status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         content = {
             'message': 'Unexpected behaviour.',
             'model-response': None
         }
     else:
+        logger.info('Prediction sucessfully.')
         status_code = status.HTTP_200_OK
         content = {
             'message': 'Success.',
             'model-response': preds[0]
         }
     finally:
+        logger.info('Returning response.')
         return responses.JSONResponse(
             status_code = status_code,
             content = content
