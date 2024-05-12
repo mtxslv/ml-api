@@ -106,7 +106,7 @@ $ python3 -m pip install .
 you can now execute the following:
 
 ```shell
-$ python src/scripts/train.py
+$ python3 src/scripts/train.py
 ```
 
 # On requirements files
